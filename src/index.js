@@ -30,35 +30,36 @@ const theme = {
 
 const refBody = document.querySelector('body');
 const refSwitchToggle = document.querySelector('#theme-switch-toggle');
-//refBody.classList.add('lihgt-theme');
-//refSwitchToggle.addEventListener('change', changeThemeLightDark);
 
-// function setDefaultTheme() {
-//   refBody.classList.add('theme-light');
-// }
-
-//????
-
-if (!localStorage.theme) localStorage.theme = 'light.theme';
+if (!localStorage.theme) localStorage.theme = theme.LIGHT;
 refBody.className = localStorage.theme;
-refSwitchToggle.setAttribute('checked', true);
 
-refSwitchToggle.addEventListener('change', function () {
-  refBody.classList.toggle('dark-theme');
-  localStorage.theme = refBody.className || 'light-theme';
-  if (refBody.classList.value === theme.DARK) {
-    refSwitchToggle.checked = true;
+if (refBody.classList.value === theme.DARK) {
+  refSwitchToggle.checked = true;
+}
+refSwitchToggle.addEventListener('change', function (e) {
+  if (e.target.checked) {
+    localStorage.setItem('theme', theme.DARK);
+    refBody.classList = theme.DARK;
+  } else {
+    localStorage.setItem('theme', theme.LIGHT);
+    refBody.classList = theme.LIGHT;
   }
-  //   if (refBody.classList === 'light-theme') {
-  //     refSwitchToggle.checked = true;
-  //   }
-  //   if (refBody.classList === 'light-theme') {
-  //     refSwitchToggle.checked = true;
-  //   } else if (refBody.classList === 'dark-theme') {
-  //     refSwitchToggle.checked = true;
-  //   }
-  //refSwitchToggle.setAttribute('checked', true);
-  //   } else {
-  //     refBody.classList.remove('dark-theme');
-  //   }
 });
+
+//РАБОЧИЙ ВАРИАНТ
+// refBody.classList.add(
+//   localStorage.getItem('theme') === null ? theme.LIGHT : localStorage.getItem('theme'),
+// );
+// if (refBody.classList.value === theme.DARK) {
+//   refSwitchToggle.checked = true;
+// }
+// refSwitchToggle.addEventListener('change', function (e) {
+//   if (e.target.checked) {
+//     localStorage.setItem('theme', theme.DARK);
+//     refBody.classList.replace(theme.LIGHT, theme.DARK);
+//   } else {
+//     localStorage.setItem('theme', theme.LIGHT);
+//     refBody.classList.replace(theme.DARK, theme.LIGHT);
+//   }
+// });
